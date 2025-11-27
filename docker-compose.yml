@@ -1,0 +1,63 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_contenidor
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: elementos
+      MYSQL_USER: usuario_db
+      MYSQL_PASSWORD: password_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - app_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend_contenidor
+    depends_on:
+      - mysql
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+    command: sh -c "./wait-for-it.sh mysql_contenidor:3306 --timeout=60 --strict -- php -S 0.0.0.0:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend_contenidor
+    depends_on:
+      - backend
+    ports:
+      - "8080:8080"
+    networks:
+      - app_network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: adminMySQL_contenidor
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql_contenidor
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root123
+    ports:
+      - "8081:80"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
