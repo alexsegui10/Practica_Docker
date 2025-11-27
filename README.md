@@ -17,22 +17,6 @@ Imagen de Node 18, instalo dependencias y ejecuto npm run serve.
 - **frontend_contenidor**: Vue en el puerto 8080.
 - **adminMySQL_contenidor**: phpMyAdmin en el puerto 8081.
 
-## Comandos
-
-Arrancar:
-```bash
-docker-compose up -d
-```
-
-Parar:
-```bash
-docker-compose down
-```
-
-Reconstruir:
-```bash
-docker-compose build
-```
 
 ## URLs
 
