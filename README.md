@@ -23,3 +23,14 @@ Imagen de Node 18, instalo dependencias y ejecuto npm run serve.
 - Frontend: http://localhost:8080
 - Backend: http://localhost:8000/api/items
 - phpMyAdmin: http://localhost:8081
+
+## Comprobaciones
+
+### Frontend funcionando
+![Frontend](img/vue_.png)
+
+### Backend API
+![Backend](img/Backend_foto.png)
+
+### phpMyAdmin
+![phpMyAdmin](img/phpmyadmin.png)
